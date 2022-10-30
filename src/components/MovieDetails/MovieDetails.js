@@ -1,12 +1,16 @@
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+// eslint-disable-next-line no-unused-vars
 import userEvent from '@testing-library/user-event';
+import { Link } from 'react-router-dom';
 
 export const MovieDetails = () => {
   const { id } = useParams();
 
   const [details, setDetails] = useState({});
+  const [genres, setGenres] = useState([]);
+  const [year, setYear] = useState([]);
 
   const getDetailsApi = async () => {
     const { data } = await axios.get(
@@ -15,37 +19,55 @@ export const MovieDetails = () => {
     return data;
   };
 
+  const onArrayItems = async () => {
+    const movieDetails = await getDetailsApi();
+    setDetails(movieDetails);
+    const allGenres = await movieDetails.genres;
+    setGenres(allGenres);
+    const year = await movieDetails.release_date.slice(0, 4);
+    setYear(year);
+  };
+
   useEffect(() => {
-    getDetailsApi().then(setDetails);
+    onArrayItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //   const year = details.release_date.slice(0, 4);
-
   const score = Math.round(details.vote_average * 10);
-  console.log(details);
 
   return (
     <>
+      <Link to={'/home'}>Go back</Link>
       <div style={{ display: 'flex' }}>
         <img
+          style={{ height: '500px' }}
           alt={details.title}
           src={`https://image.tmdb.org/t/p/w500/${details.poster_path}`}
         ></img>
         <div>
           <h1>
-            {details.original_title}({details.release_date})
+            {details.original_title}({year})
           </h1>
           <span>User score: {score}%</span>
           <h2>Overview</h2>
           <p>{details.overview}</p>
           <h3>Genres</h3>
-          <p>
-            {/* {details.genres.map(ganre => (
-              <li>{ganre.name}</li>
-            ))} */}
-          </p>
+          <ul style={{ display: 'flex', gap: '10px', listStyle: 'none' }}>
+            {genres.map(ganre => (
+              <li key={ganre.name}>{ganre.name}</li>
+            ))}
+          </ul>
         </div>
       </div>
+      <div style={{ padding: '20px' }}>
+        <h3 style={{ margin: '0' }}>Additional information</h3>
+        <ul>
+          <li>
+            <Link to={'cast'}>Cast</Link>
+          </li>
+        </ul>
+      </div>
+      <Outlet />
     </>
   );
 };
