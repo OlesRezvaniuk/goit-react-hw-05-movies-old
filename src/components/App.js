@@ -4,6 +4,7 @@ import { Layout } from './Layout';
 import { Trendings } from './Trendings/Trendings';
 import { MovieDetails } from './MovieDetails/MovieDetails';
 import { Cast } from './Cast/Cast';
+// import { Reviews } from './Reviews/Reviews';
 
 export const App = () => {
   return (
@@ -12,6 +13,7 @@ export const App = () => {
         <Route path="home" element={<Trendings />} />
         <Route path="home/:id" element={<MovieDetails />}>
           <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<div>HYI</div>} />
         </Route>
         <Route path="movies" element={<div>Movies</div>} />
       </Route>
