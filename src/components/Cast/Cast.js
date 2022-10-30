@@ -5,7 +5,7 @@ import s from './Cast.module.css';
 
 export const Cast = () => {
   const { id } = useParams();
-  const [cast, setCast] = useState([]);
+  //   const [cast, setCast] = useState([]);
   const [topCast, setTopCast] = useState([]);
 
   const getCastApi = async () => {
@@ -17,7 +17,7 @@ export const Cast = () => {
 
   const onArrayItems = async () => {
     const movieCast = await getCastApi();
-    setCast(movieCast);
+    // setCast(movieCast);
     const topCast = await movieCast.cast.splice(0, 21);
     setTopCast(topCast);
   };
