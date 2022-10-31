@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { NavItem } from './Appbar/AppBar.styled';
 
 const navItems = [

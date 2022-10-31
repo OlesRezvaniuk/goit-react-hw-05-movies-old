@@ -9,7 +9,10 @@ import { useLocation } from 'react-router-dom';
 export const MovieDetails = () => {
   const { id } = useParams();
 
-  const { location } = useLocation();
+  const location = useLocation();
+  const backLinkHref = location.pathname.slice(0, location.pathname.length - 6);
+
+  console.log(backLinkHref);
 
   const [details, setDetails] = useState({});
   const [genres, setGenres] = useState([]);
@@ -38,11 +41,9 @@ export const MovieDetails = () => {
 
   const score = Math.round(details.vote_average * 10);
 
-  console.log(id);
-
   return (
     <>
-      <Link to={'/home'}>Go back</Link>
+      <Link to={`${backLinkHref}`}>Go back</Link>
       <div style={{ display: 'flex' }}>
         <img
           style={{ width: '500px' }}
