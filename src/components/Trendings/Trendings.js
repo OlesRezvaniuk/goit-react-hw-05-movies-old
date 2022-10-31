@@ -16,7 +16,7 @@ export const Trendings = () => {
     <>
       <ul className={s.trending__list}>
         {trendingMovies.map(trend => (
-          <li key={trend.id}>
+          <li key={trend.id} className={s.trending__item}>
             <Link
               key={trend.id}
               className={s.trending__link}

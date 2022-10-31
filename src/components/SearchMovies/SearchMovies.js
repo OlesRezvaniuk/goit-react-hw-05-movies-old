@@ -1,24 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-
+import {
+  Form,
+  Input,
+  Button,
+  List,
+  Img,
+  Item,
+  MovieLink,
+} from './SearchMovies.styled';
+import { useLocation, useSearchParams } from 'react-router-dom';
 export const SearchMovies = () => {
-  const [name, setName] = useState('');
+  const location = useLocation();
+  const [params, setParams] = useSearchParams();
+  const namePar = params.get('query');
+
+  const [name, setName] = useState(namePar ?? '');
   const [moviesArr, setMoviesArr] = useState([]);
 
   const onInputChange = e => {
     setName(e.currentTarget.value);
   };
+  console.log(namePar);
+  console.log(name);
 
-  const heandleSearch = e => {
-    e.preventDefault();
-    if (name !== '') {
-      movies();
-    }
-    console.log(moviesArr);
-    setName('');
-  };
+  useEffect(() => {
+    movies();
+  }, []);
 
   const getMoviesApi = async () => {
     const { data } = await axios.get(
@@ -32,22 +43,55 @@ export const SearchMovies = () => {
     setMoviesArr(moviesApi.results);
   };
 
+  // if (namePar !== null) {
+  //   movies();
+  // }
+
+  const heandleSearch = e => {
+    e.preventDefault();
+    if (name !== '') {
+      movies();
+      setParams({ query: name });
+    }
+    setName('');
+  };
+
   return (
     <div>
       <div>
-        <form onSubmit={heandleSearch}>
-          <input value={name} onChange={onInputChange} />
-          <button type="submit">Search</button>
-        </form>
+        <Form onSubmit={heandleSearch}>
+          <Input value={name} onChange={onInputChange} />
+          <Button type="submit">Search</Button>
+        </Form>
       </div>
       <section>
-        <ul>
+        <List>
           {moviesArr.map(movie => (
-            <li key={movie.id}>
-              <Link to={`${movie.id}`}>{movie.original_title}</Link>
-            </li>
+            <Item key={movie.id}>
+              <Link
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column-reverse',
+                  textAlign: 'center',
+                  height: '100%',
+                  justifyContent: 'flex-end',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  color: 'black',
+                  marginBottom: '10px',
+                }}
+                to={`${movie.id}`}
+                state={{ from: location }}
+              >
+                {movie.original_title}{' '}
+                <Img
+                  alt={movie.title}
+                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                ></Img>
+              </Link>
+            </Item>
           ))}
-        </ul>
+        </List>
       </section>
       <Outlet />
     </div>

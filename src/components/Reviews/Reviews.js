@@ -18,8 +18,6 @@ export const Reviews = () => {
     setReviews(movieReview.results);
   };
 
-  console.log(reviews);
-
   useEffect(() => {
     onArrayItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
