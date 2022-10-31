@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { NavItem } from './Appbar/AppBar.styled';
 
 const navItems = [
   { href: 'home', text: 'Home' },
@@ -7,11 +8,11 @@ const navItems = [
 
 export const AppBar = () => {
   return (
-    <ul>
+    <ul style={{ padding: '0px' }}>
       {navItems.map(item => (
-        <Link to={item.href} key={item.href}>
+        <NavItem to={item.href} key={item.href}>
           {item.text}
-        </Link>
+        </NavItem>
       ))}
     </ul>
   );

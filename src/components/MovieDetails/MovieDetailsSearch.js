@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-export const MovieDetails = () => {
+export const MovieDetailsSearch = () => {
   const { id } = useParams();
 
   const { location } = useLocation();
@@ -42,7 +42,7 @@ export const MovieDetails = () => {
 
   return (
     <>
-      <Link to={'/home'}>Go back</Link>
+      <Link to={'../'}>Go back</Link>
       <div style={{ display: 'flex' }}>
         <img
           style={{ width: '500px' }}
