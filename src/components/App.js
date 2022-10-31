@@ -1,12 +1,13 @@
 import { Routes } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import { Layout } from './Layout';
+import { Layout } from './Layout/Layout';
 import { Trendings } from './Trendings/Trendings';
 import { MovieDetails } from './MovieDetails/MovieDetails';
 import { Cast } from './Cast/Cast';
 import { Reviews } from './Reviews/Reviews';
 import { SearchMovies } from './SearchMovies/SearchMovies';
 import { MovieDetailsSearch } from './MovieDetails/MovieDetailsSearch';
+// import { MovieDetailsSearch } from './MovieDetails/MovieDetailsSearch';
 
 export const App = () => {
   return (

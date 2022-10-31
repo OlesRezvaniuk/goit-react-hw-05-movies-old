@@ -1,9 +1,6 @@
 import { Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-// eslint-disable-next-line no-unused-vars
-// import userEvent from '@testing-library/user-event';
-// import { Link } from 'react-router-dom';
+
 import { useLocation } from 'react-router-dom';
 import {
   Box,
@@ -13,6 +10,7 @@ import {
   BoxInfoItem,
   Poster,
 } from './MovieDetails.styled';
+import { getDetailsApi } from 'components/MoviesApi/MoviesApi';
 
 const linkArr = [
   { name: 'cast', href: 'cast' },
@@ -22,7 +20,6 @@ const linkArr = [
 export const MovieDetailsSearch = () => {
   const { id } = useParams();
 
-  // const product = getProductById(id);
   const location = useLocation();
   const { search, pathname } = location.state.from;
 
@@ -30,15 +27,8 @@ export const MovieDetailsSearch = () => {
   const [genres, setGenres] = useState([]);
   const [year, setYear] = useState([]);
 
-  const getDetailsApi = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=6f552eb6929f0128999ddb3bd491ac60&language=en-US`
-    );
-    return data;
-  };
-
   const onArrayItems = async () => {
-    const movieDetails = await getDetailsApi();
+    const movieDetails = await getDetailsApi(id);
     setDetails(movieDetails);
     const allGenres = await movieDetails.genres;
     setGenres(allGenres);
