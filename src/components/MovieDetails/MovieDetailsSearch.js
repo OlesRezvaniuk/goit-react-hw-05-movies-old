@@ -1,18 +1,13 @@
 import { Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-
-import { useLocation } from 'react-router-dom';
-import {
-  Box,
-  ToBackBtn,
-  BoxInfo,
-  AdditInfo,
-  BoxInfoItem,
-  Poster,
-} from './MovieDetails.styled';
+import { MovieInfo } from './MovieInfo/MovieInfo';
+import { MovieAdditionalInfo } from './MovieAdditionlInfo/MovieAdditionalInfo';
 import { getDetailsApi } from 'components/MoviesApi/MoviesApi';
+// eslint-disable-next-line no-unused-vars
+import { useLocation } from 'react-router-dom';
+import { Box, ToBackBtn } from './MovieDetails.styled';
 
-const linkArr = [
+const AdditionalInfo = [
   { name: 'cast', href: 'cast' },
   { name: 'reviews', href: 'reviews' },
 ];
@@ -21,7 +16,7 @@ export const MovieDetailsSearch = () => {
   const { id } = useParams();
 
   const location = useLocation();
-  const { search, pathname } = location.state?.from;
+  const { search, pathname } = location.state.from;
 
   const [details, setDetails] = useState({});
   const [genres, setGenres] = useState([]);
@@ -36,6 +31,8 @@ export const MovieDetailsSearch = () => {
     setYear(year);
   };
 
+  console.log(location);
+
   useEffect(() => {
     onArrayItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,51 +43,13 @@ export const MovieDetailsSearch = () => {
   return (
     <Box>
       <ToBackBtn to={pathname + search}>Go back</ToBackBtn>
-      <BoxInfo>
-        <Poster
-          alt={details.title}
-          src={`https://image.tmdb.org/t/p/w500/${details.poster_path}`}
-        ></Poster>
-        <div style={{ padding: '15px' }}>
-          <h1>
-            {details.original_title}({year})
-          </h1>
-          <span>User score: {score}%</span>
-          <h2>Overview</h2>
-          <p>{details.overview}</p>
-          <h3>Genres</h3>
-          <ul
-            style={{
-              listStyle: 'none',
-              padding: '0',
-            }}
-          >
-            {genres.map(ganre => (
-              <li key={ganre.name}>{ganre.name}</li>
-            ))}
-          </ul>
-        </div>
-      </BoxInfo>
-      <div style={{ padding: '20px' }}>
-        <h3
-          style={{
-            margin: '0',
-            textAlign: 'center',
-            textTransform: 'uppercase',
-          }}
-        >
-          Additional information
-        </h3>
-        <AdditInfo>
-          {linkArr.map(link => (
-            <li key={link.name}>
-              <BoxInfoItem key={link.name} to={`${link.href}`}>
-                {link.name}
-              </BoxInfoItem>
-            </li>
-          ))}
-        </AdditInfo>
-      </div>
+      <MovieInfo
+        onDetails={details}
+        onYear={year}
+        onScore={score}
+        onGenres={genres}
+      />
+      <MovieAdditionalInfo onAdditionlInfo={AdditionalInfo} />
       <Outlet />
     </Box>
   );

@@ -8,7 +8,7 @@ import { getSearchMoviesApi } from 'components/MoviesApi/MoviesApi';
 import { SearchForm } from './SearchMoviesForm/SearchForm';
 import { MoviesList } from './SearchMoviesList/MoviesList';
 
-export const SearchMovies = () => {
+const SearchMovies = () => {
   const location = useLocation();
   const [params, setParams] = useSearchParams();
   const namePar = params.get('query');
@@ -53,3 +53,5 @@ export const SearchMovies = () => {
     </div>
   );
 };
+
+export default SearchMovies;

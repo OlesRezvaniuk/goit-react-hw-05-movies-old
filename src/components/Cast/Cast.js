@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { getCastApi } from 'components/MoviesApi/MoviesApi';
 import { CastList } from './CastList/CastList';
 
-export const Cast = () => {
+const Cast = () => {
   const { id } = useParams();
   const [topCast, setTopCast] = useState([]);
 
@@ -24,3 +24,5 @@ export const Cast = () => {
     </>
   );
 };
+
+export default Cast;
