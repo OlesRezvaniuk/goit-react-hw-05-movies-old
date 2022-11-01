@@ -21,7 +21,7 @@ export const MovieDetailsSearch = () => {
   const { id } = useParams();
 
   const location = useLocation();
-  const { search, pathname } = location.state.from;
+  const { search, pathname } = location.state?.from;
 
   const [details, setDetails] = useState({});
   const [genres, setGenres] = useState([]);

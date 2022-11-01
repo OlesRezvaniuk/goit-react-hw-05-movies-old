@@ -5,7 +5,6 @@ import { CastList } from './CastList/CastList';
 
 export const Cast = () => {
   const { id } = useParams();
-  //   const [cast, setCast] = useState([]);
   const [topCast, setTopCast] = useState([]);
 
   const onArrayItems = async () => {

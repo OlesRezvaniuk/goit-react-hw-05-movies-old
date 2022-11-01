@@ -21,7 +21,9 @@ export const SearchMovies = () => {
   };
 
   useEffect(() => {
-    getMovies();
+    if (name !== '') {
+      getMovies();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
