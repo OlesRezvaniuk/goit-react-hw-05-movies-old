@@ -1,6 +1,6 @@
 import { AdditInfo, BoxInfoItem } from '../MovieDetails.styled';
 
-export const MovieAdditionalInfo = ({ onAdditionlInfo }) => {
+export const MovieAdditionalInfo = ({ onAdditionlInfo, location }) => {
   return (
     <div style={{ padding: '20px' }}>
       <h3
@@ -13,10 +13,10 @@ export const MovieAdditionalInfo = ({ onAdditionlInfo }) => {
         Additional information
       </h3>
       <AdditInfo>
-        {onAdditionlInfo.map(link => (
-          <li key={link.name}>
-            <BoxInfoItem key={link.name} to={`${link.href}`}>
-              {link.name}
+        {onAdditionlInfo.map(({ name, href }) => (
+          <li key={name}>
+            <BoxInfoItem state={location} key={name} to={`${href}`}>
+              {name}
             </BoxInfoItem>
           </li>
         ))}

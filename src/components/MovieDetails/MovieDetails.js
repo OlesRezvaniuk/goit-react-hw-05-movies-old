@@ -44,6 +44,7 @@ const MovieDetails = () => {
         onScore={score}
         onGenres={genres}
       />
+      {/* Cast, Rewievs */}
       <MovieAdditionalInfo onAdditionlInfo={AdditionalInfo} />
       <Outlet />
     </Box>

@@ -16,7 +16,11 @@ export const MovieDetailsSearch = () => {
   const { id } = useParams();
 
   const location = useLocation();
-  const { search, pathname } = location.state.from;
+
+  const search = location?.state?.from?.search || '';
+  const pathname = location?.state?.from?.pathname || '/';
+
+  console.log(search, pathname);
 
   const [details, setDetails] = useState({});
   const [genres, setGenres] = useState([]);
@@ -31,8 +35,6 @@ export const MovieDetailsSearch = () => {
     setYear(year);
   };
 
-  console.log(location);
-
   useEffect(() => {
     onArrayItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,14 +44,17 @@ export const MovieDetailsSearch = () => {
 
   return (
     <Box>
-      <ToBackBtn to={pathname + search}>Go back</ToBackBtn>
+      <ToBackBtn to={search + pathname}>Go back</ToBackBtn>
       <MovieInfo
         onDetails={details}
         onYear={year}
         onScore={score}
         onGenres={genres}
       />
-      <MovieAdditionalInfo onAdditionlInfo={AdditionalInfo} />
+      <MovieAdditionalInfo
+        location={location}
+        onAdditionlInfo={AdditionalInfo}
+      />
       <Outlet />
     </Box>
   );
